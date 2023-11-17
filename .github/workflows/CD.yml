@@ -1,0 +1,34 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CD
+
+on:
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        
+      - name: Build App
+        run: ./gradlew bootJar
+
+      - name: Transfer Deploy Script use SCP
+        uses: appleboy/scp-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.HOST1 }}
+          key: ${{ secrets.PRIVATE_KEY1 }}
+          source: "deploy.sh"
+          target: "/home/ubuntu/deploy"
+
+      - name: Execute Server Init Script
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.HOST1 }}
+          key: ${{ secrets.PRIVATE_KEY1 }}
+          script_stop: true
+          script: chmod +x /home/ubuntu/deploy/deploy.sh && sh /home/ubuntu/deploy/deploy.sh
