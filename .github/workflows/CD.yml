@@ -31,6 +31,6 @@ jobs:
           username: ubuntu
           host: ${{ secrets.HOST1 }}
           key: ${{ secrets.PRIVATE_KEY1 }}
-          source: "/build/libs/*.jar"
+          source: "./*.jar"
           target: "/home/ubuntu/deploy"
           strip_components: 2
