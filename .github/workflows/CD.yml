@@ -37,5 +37,6 @@ jobs:
           username: ubuntu
           host: ${{ secrets.HOST1 }}
           key: ${{ secrets.PRIVATE_KEY1 }}
-          source: "./build/libs/*.jar"
+          # source: "./build/libs/*.jar"
+          source: "*"
           target: "/home/ubuntu/deploy"
