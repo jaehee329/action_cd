@@ -25,14 +25,21 @@ jobs:
       - name: Build App
         run: ./gradlew bootJar
 
-      - name: Deploy Prod use SCP
+      - name: SCP
         uses: appleboy/scp-action@master
         with:
           username: ubuntu
           host: ${{ secrets.HOST1 }}
           key: ${{ secrets.PRIVATE_KEY1 }}
-          # source: "./build/libs/*.jar"
-          # source: "*"
           source: "./demo/build/libs/*.jar"
           target: "/home/ubuntu/deploy"
-          strip_components: 2
+          strip_components: 3
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          username: ubuntu
+          host: ${{ secrets.HOST1 }}
+          key: ${{ secrets.PRIVATE_KEY1 }}
+          script: |
+            /home/ubuntu/deploy/deploy.sh
