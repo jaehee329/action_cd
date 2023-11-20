@@ -29,8 +29,6 @@ jobs:
             ls /
             echo "ls ./"
             ls ./
-            echo "ls ./demo"
-            ls ./demo
             echo "ls ./build/libs"
             ls ./build/libs
       - name: Deploy Prod use SCP
