@@ -42,4 +42,4 @@ jobs:
           host: ${{ secrets.HOST1 }}
           key: ${{ secrets.PRIVATE_KEY1 }}
           script: |
-            echo sudo -S /home/ubuntu/deploy/deploy.sh
+            sudo /home/ubuntu/deploy/deploy.sh
